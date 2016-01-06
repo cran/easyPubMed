@@ -1,0 +1,7 @@
+d2058d3d7a1f8827a6894286681a1ab0 *DESCRIPTION
+e94e3b5f627b07755d57c9f8c69504fd *NAMESPACE
+108525ee8b797e143f1b38f7173c92e2 *R/fetchPubmedData.R
+483fc927d5f527346680fd13176f4cda *R/getPubmedIds.R
+7300b3df238e84b5bd7eac75b89a766d *man/easyPubMed-package.Rd
+e2c18ec9a3b5ca2a2fed15cfd54dd05d *man/fetchPubmedData.Rd
+06c09eb0f19cbbb01572e4f34a0edc08 *man/getPubmedIds.Rd
