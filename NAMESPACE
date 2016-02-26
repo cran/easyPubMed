@@ -1,3 +1,2 @@
 exportPattern("^[[:alpha:]]+")
-import(XML)
-import(curl)
+import("XML")
