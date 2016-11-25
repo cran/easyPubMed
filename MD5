@@ -1,9 +1,9 @@
-9fabea7833922538175a2c16b2e0d6df *DESCRIPTION
-3fd07bd780ed070704265790cb10f2d8 *NAMESPACE
-4509f349a95573edacd5b24ce23c4130 *R/batch_pubmed_download.R
-51a0336e5d408fb7f412571892b705e3 *R/easyPubMed-internal.R
-50d28e7eced7afe365b57639d3b28005 *R/fetch_pubmed_data.R
-5e5ed8592744991a887371f351c2f1b6 *R/get_pubmed_ids.R
+7c7e2be377018a37f9bd62243ee5c32c *DESCRIPTION
+6fae7d10590586f0127bbebbfee3afdb *NAMESPACE
+da432db0b3df5edee62dca434b37396c *R/batch_pubmed_download.R
+cb0fd85379f5d6216c886988829007ba *R/easyPubMed-internal.R
+14d2791ef18dd76f91c0636c027ee408 *R/fetch_pubmed_data.R
+c5812e41bc853819d99826c693db1d32 *R/get_pubmed_ids.R
 67ac5ddd7b24d08c9dac5c0ee89553ac *man/batch_pubmed_download.Rd
 103f5626c443d61b6fe7746b253ba6f3 *man/easyPubMed-package.Rd
 a93c2e8f4b74fab7b94a17e04e98a7de *man/fetch_pubmed_data.Rd
