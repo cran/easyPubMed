@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Retrieving data from PubMed</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<p>PubMed is an online repository of references and abstracts of publications in the fields of medicine and life sciences. PubMed is a free resource that is developed and maintained by the National Center for Biotechnology Information (NCBI), at the U.S. National Library of Medicine (NLM), located at the National Institutes of Health (NIH). PubMed homepage is located at the following URL: <a href="https://www.ncbi.nlm.nih.gov/pubmed/">https://www.ncbi.nlm.nih.gov/pubmed/</a>. Alternatively, PubMed can be programmatically queried via the NCBI Entrez E-utilities interface.</p>
+
+<p><strong>easyPubMed</strong> is an <strong>R interface to the Entrez Programming Utilities</strong> aimed at allowing an easy and smooth programmatic access to PubMed. The package is suitable for batch downloading large volumes of records (via the <em>batch_pubmed_download()</em> function) and also comes with a set of functions to perform basic processing of the PubMed query output. <em>easyPubMed</em> can request and handle PubMed records in either XML or TXT format. 
+This vignette covers the key functions of the package and provides informative examples.</p>
+
+<h1>Retrieving data from PubMed</h1>
+
+<p>The first section of this tutorial covers how to use easyPubMed for querying Entrez and how to retrieve or download the desired PubMed records from the Entrez History Server. </p>
+
+<h2>A simple PubMed query via easyPubMed</h2>
+
+<p>Performing a standard PubMed search via easyPubMed is a two-step process: 1) the <em>PubMed query</em> step and 2) the <em>data retrieval</em> step. PubMed is queried via the <em>get_pubmed_ids()</em> function, that only takes one Query string as argument. The standard PubMed synthax applies, i.e. you can use the same tags-filters as in the  This has two results. 1) the query results are posted on the Entrez History Server ready for retrieval and 2) the function returns a list containing all information to access and download these resuts from the server. Data can  be retrieved from the History Server via the <em>fetch_pubmed_data()</em> function. The records can be requested in either XML or TXT format. Here following you can find a very simple example. </p>
+
+<pre><code class="r">my_query &lt;- &quot;Damiano Fantini[AU]&quot;
+my_entrez_id &lt;- get_pubmed_ids(my_query)
+my_abstracts_txt &lt;- fetch_pubmed_data(my_entrez_id, format = &quot;abstract&quot;)
+my_abstracts_txt[1:10]
+</code></pre>
+
+<pre><code>##  [1] &quot;&quot;                                                                               
+##  [2] &quot;1. Nat Rev Urol. 2017 Feb 7. doi: 10.1038/nrurol.2017.11. [Epub ahead of print]&quot;
+##  [3] &quot;&quot;                                                                               
+##  [4] &quot;The evolving genomic landscape of urothelial carcinoma.&quot;                        
+##  [5] &quot;&quot;                                                                               
+##  [6] &quot;Glaser AP(1), Fantini D(1), Shilatifard A(1), Schaeffer EM(1), Meeks JJ(1).&quot;    
+##  [7] &quot;&quot;                                                                               
+##  [8] &quot;Author information: &quot;                                                           
+##  [9] &quot;(1)Northwestern University, Department of Urology, 303 E. Chicago Avenue, Tarry&quot;
+## [10] &quot;16-703, Chicago, Illinois 60611, USA.&quot;
+</code></pre>
+
+<p>Here, the PubMed records were retrieved in the <em>Abstract</em> format. The formats supported by Entrez and easyPubMed are the following: &ldquo;asn.1&rdquo;, &ldquo;xml&rdquo;, &ldquo;medline&rdquo;, &ldquo;uilist&rdquo;, &ldquo;abstract&rdquo;. The following example shows how to retrieve PubMed records in XML format. In this case, the resulting output will be a <em>XMLInternalDocument</em> and <em>XMLAbstractDocument</em> class object. To access such XML object, we recommend using the functions included in the XML package. For example, it is possible to extract the title of each Article as follows.</p>
+
+<pre><code class="r">my_abstracts_xml &lt;- fetch_pubmed_data(my_entrez_id)
+class(my_abstracts_xml) 
+</code></pre>
+
+<pre><code>## [1] &quot;XMLInternalDocument&quot; &quot;XMLAbstractDocument&quot;
+</code></pre>
+
+<pre><code class="r">#
+# apply &quot;saveXML&quot; to each //ArticleTitle tag via XML::xpathApply()
+my_titles &lt;- unlist(xpathApply(my_abstracts_xml, &quot;//ArticleTitle&quot;, saveXML))
+#
+# use gsub to remove the tag, also trim long titles
+my_titles &lt;- gsub(&quot;(^.{5,10}Title&gt;)|(&lt;\\/.*$)&quot;, &quot;&quot;, my_titles)
+my_titles[nchar(my_titles)&gt;75] &lt;- paste(substr(my_titles[nchar(my_titles)&gt;75], 1, 70), 
+                                        &quot;...&quot;, sep = &quot;&quot;)
+print(my_titles)
+</code></pre>
+
+<pre><code>## [1] &quot;The evolving genomic landscape of urothelial carcinoma.&quot;                  
+## [2] &quot;Chromatin association of XRCC5/6 in the absence of DNA damage depends ...&quot;
+## [3] &quot;The prion protein is critical for DNA repair and cell survival after g...&quot;
+## [4] &quot;Rapid inactivation and proteasome-mediated degradation of OGG1 contrib...&quot;
+## [5] &quot;Understanding different functions of mammalian AP endonuclease (APE1) ...&quot;
+## [6] &quot;Critical lysine residues within the overlooked N-terminal domain of hu...&quot;
+## [7] &quot;APE1/Ref-1 interacts with NPM1 within nucleoli and plays a role in the...&quot;
+## [8] &quot;APE1/Ref-1 regulates PTEN expression mediated by Egr-1.&quot;
+</code></pre>
+
+<h2>Downloading and saving records as XML or TXT files</h2>
+
+<p>Instead of retrieving PubMed records as character- or XML-class objects, it is also possible to download all records of a PubMed query and save them as <em>txt</em> or <em>xml</em> files on the local computer. Downloaded records will be saved locally as one or more files with the same prefix followed by a sequential number and the <em>txt</em> or <em>xml</em> extension. If a destination folder is not specified, the current directory will be used as target directory for the download. The <em>batch_pubmed_download()</em> function is suitable for downloading very large volumes of PubMed records. </p>
+
+<pre><code class="r">new_query &lt;- &quot;(APE1[TI] OR OGG1[TI]) AND (2012[PDAT]:2016[PDAT])&quot;
+out.A &lt;- batch_pubmed_download(pubmed_query_string = new_query, 
+                               format = &quot;xml&quot;, 
+                               batch_size = 150,
+                               dest_file_prefix = &quot;easyPM_example&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;PubMed data batch 1 / 2 downloaded...&quot;
+## [1] &quot;PubMed data batch 2 / 2 downloaded...&quot;
+</code></pre>
+
+<pre><code class="r">out.A # this variable stores the name of the output files
+</code></pre>
+
+<pre><code>## [1] &quot;easyPM_example01.xml&quot; &quot;easyPM_example02.xml&quot;
+</code></pre>
+
+<h1>Manipulating PubMed records</h1>
+
+<p>The second section of this tutorial covers those <em>easyPubMed</em> functionalities aimed at transforming and analyzing PubMed records. While using the functions from the <em>XML</em> package is usually the recommended approach to deal with data stored in XML format, there are some exceptions where it may be convenient to coerce these records to Strings. <em>easyPubMed</em> comes with a set of dedicated functions that perform this task and manipulate the results. These functions will be covered in this section.</p>
+
+<h2>Extracting Affiliation data from a single PubMed record</h2>
+
+<p>TO convert XML PubMed records to strings, the <em>articles_to_list()</em> function is used. This function converts an an XML object containing PubMed records (identified by the \PubmedArticle tag) into a list of individual records  from  or an XML file obtained as shown above. Each record in the list is a string (character-class vector of length 1) that still includes XML tags. </p>
+
+<pre><code class="r">my_PM_list &lt;- articles_to_list(my_abstracts_xml)
+class(my_PM_list[[4]])
+</code></pre>
+
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
+
+<pre><code class="r">cat(substr(my_PM_list[[4]], 1, 984))
+</code></pre>
+
+<pre><code>## &lt;PubmedArticle&gt;
+##   &lt;MedlineCitation Status=&quot;MEDLINE&quot; Owner=&quot;NLM&quot;&gt;
+##     &lt;PMID Version=&quot;1&quot;&gt;23332971&lt;/PMID&gt;
+##     &lt;DateCreated&gt;
+##       &lt;Year&gt;2013&lt;/Year&gt;
+##       &lt;Month&gt;03&lt;/Month&gt;
+##       &lt;Day&gt;04&lt;/Day&gt;
+##     &lt;/DateCreated&gt;
+##     &lt;DateCompleted&gt;
+##       &lt;Year&gt;2013&lt;/Year&gt;
+##       &lt;Month&gt;08&lt;/Month&gt;
+##       &lt;Day&gt;07&lt;/Day&gt;
+##     &lt;/DateCompleted&gt;
+##     &lt;DateRevised&gt;
+##       &lt;Year&gt;2016&lt;/Year&gt;
+##       &lt;Month&gt;11&lt;/Month&gt;
+##       &lt;Day&gt;25&lt;/Day&gt;
+##     &lt;/DateRevised&gt;
+##     &lt;Article PubModel=&quot;Print-Electronic&quot;&gt;
+##       &lt;Journal&gt;
+##         &lt;ISSN IssnType=&quot;Electronic&quot;&gt;1568-7856&lt;/ISSN&gt;
+##         &lt;JournalIssue CitedMedium=&quot;Internet&quot;&gt;
+##           &lt;Volume&gt;12&lt;/Volume&gt;
+##           &lt;Issue&gt;3&lt;/Issue&gt;
+##           &lt;PubDate&gt;
+##             &lt;Year&gt;2013&lt;/Year&gt;
+##             &lt;Month&gt;Mar&lt;/Month&gt;
+##             &lt;Day&gt;01&lt;/Day&gt;
+##           &lt;/PubDate&gt;
+##         &lt;/JournalIssue&gt;
+##         &lt;Title&gt;DNA repair&lt;/Title&gt;
+##         &lt;ISOAbbreviation&gt;DNA Repair (Amst.)&lt;/ISOAbbreviation&gt;
+##       &lt;/Journal&gt;
+##       &lt;ArticleTitle&gt;Rapid inactivation and proteasome-mediated degradation of OGG1
+</code></pre>
+
+<p>Affiliations or other fields of interest can be extracted from a specific record using the <em>custom_grep()</em> function, that combines regular expressions (<em>regexpr</em>, <em>gsub</em>) and substring extraction (<em>substr</em>). The fields extracted from the record will be returned as elements of a list or a character vector. </p>
+
+<pre><code class="r">curr_PM_record &lt;- my_PM_list[[4]]
+custom_grep(curr_PM_record, tag = &quot;DateCompleted&quot;)
+</code></pre>
+
+<pre><code>## [[1]]
+## [1] &quot;\n      &lt;Year&gt;2013&lt;/Year&gt;\n      &lt;Month&gt;08&lt;/Month&gt;\n      &lt;Day&gt;07&lt;/Day&gt;\n    &quot;
+</code></pre>
+
+<pre><code class="r">custom_grep(curr_PM_record, tag = &quot;LastName&quot;, format = &quot;char&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;Fantini&quot;   &quot;Moritz&quot;    &quot;Auvré&quot;     &quot;Amouroux&quot;  &quot;Campalans&quot; &quot;Epe&quot;      
+## [7] &quot;Bravard&quot;   &quot;Radicella&quot;
+</code></pre>
+
+<p><em>easyPubMed</em> implements out of the box a tool for extracting data from a PubMed record: the <em>article_to_df()</em> function. This function accepts a string as input (typically, an element of the list outputted by an <em>articles_to_list()</em> call) and returns a data.frame. Each row corresponds to a different author; columns include values extracted from the following fields: c(&ldquo;pmid&rdquo;, &ldquo;doi&rdquo;, &ldquo;title&rdquo;, &ldquo;abstract&rdquo;, &ldquo;year&rdquo;, &ldquo;month&rdquo;, &ldquo;day&rdquo;, &ldquo;jabbrv&rdquo;, &ldquo;journal&rdquo;, &ldquo;lastname&rdquo;, &ldquo;firstname&rdquo;, &ldquo;address&rdquo;, &ldquo;email&rdquo;). One of these fields corresponds to the Article Abstract text (column n. 2). If the full text Abstract is not required, it is possible to limit the number of chars retrieved from this field by setting the max_chars argument to a small integer (&gt;= 1). </p>
+
+<pre><code class="r">my.df &lt;- article_to_df(curr_PM_record, max_chars = 18)
+#
+# Fields extracted from the PubMed record
+colnames(my.df)
+</code></pre>
+
+<pre><code>##  [1] &quot;pmid&quot;      &quot;doi&quot;       &quot;title&quot;     &quot;abstract&quot;  &quot;year&quot;     
+##  [6] &quot;month&quot;     &quot;day&quot;       &quot;jabbrv&quot;    &quot;journal&quot;   &quot;lastname&quot; 
+## [11] &quot;firstname&quot; &quot;address&quot;   &quot;email&quot;
+</code></pre>
+
+<pre><code class="r">#
+# Trim long strings and then Display some content: each row corresponds to one author
+my.df$title &lt;- substr(my.df$title, 1, 15)
+my.df$address &lt;- substr(my.df$address, 1, 19)
+my.df$jabbrv &lt;- substr(my.df$jabbrv, 1, 10)
+my.df[,c(&quot;pmid&quot;, &quot;title&quot;, &quot;jabbrv&quot;, &quot;firstname&quot;, &quot;address&quot;)]
+</code></pre>
+
+<pre><code>##       pmid           title     jabbrv firstname             address
+## 1 23332971 Rapid inactivat DNA Repair   Damiano CEA, Institute of M
+## 2 23332971 Rapid inactivat DNA Repair       Eva                &lt;NA&gt;
+## 3 23332971 Rapid inactivat DNA Repair  Frédéric                &lt;NA&gt;
+## 4 23332971 Rapid inactivat DNA Repair    Rachel                &lt;NA&gt;
+## 5 23332971 Rapid inactivat DNA Repair      Anna                &lt;NA&gt;
+## 6 23332971 Rapid inactivat DNA Repair     Bernd                &lt;NA&gt;
+## 7 23332971 Rapid inactivat DNA Repair      Anne                &lt;NA&gt;
+## 8 23332971 Rapid inactivat DNA Repair   J Pablo                &lt;NA&gt;
+</code></pre>
+
+<p>When affiliation info are identical for multiple authors, they are usually omitted as in the example above. Addresses may be imputed for all authors in the dataframe by setting the &ldquo;autofill&rdquo; argument to TRUE.</p>
+
+<pre><code class="r">my.df2 &lt;- article_to_df(curr_PM_record, autofill = TRUE)
+my.df2$title &lt;- substr(my.df2$title, 1, 15)
+my.df2$jabbrv &lt;- substr(my.df2$jabbrv, 1, 10)
+my.df2$address &lt;- substr(my.df2$address, 1, 19)
+my.df2[,c(&quot;pmid&quot;, &quot;title&quot;, &quot;jabbrv&quot;, &quot;firstname&quot;, &quot;address&quot;)]
+</code></pre>
+
+<pre><code>##       pmid           title     jabbrv firstname             address
+## 1 23332971 Rapid inactivat DNA Repair   Damiano CEA, Institute of M
+## 2 23332971 Rapid inactivat DNA Repair       Eva CEA, Institute of M
+## 3 23332971 Rapid inactivat DNA Repair  Frédéric CEA, Institute of M
+## 4 23332971 Rapid inactivat DNA Repair    Rachel CEA, Institute of M
+## 5 23332971 Rapid inactivat DNA Repair      Anna CEA, Institute of M
+## 6 23332971 Rapid inactivat DNA Repair     Bernd CEA, Institute of M
+## 7 23332971 Rapid inactivat DNA Repair      Anne CEA, Institute of M
+## 8 23332971 Rapid inactivat DNA Repair   J Pablo CEA, Institute of M
+</code></pre>
+
+<h2>Automatic Data Extraction from XML PubMed Records</h2>
+
+<p>To retrieve author information and publication data from multiple XML records at once, it is possible to use the <em>table_articles_byAuth()</em> function. This function relies on the funcions discussed above and returns a dataframe including all the fields extracted in the previous example. The function accepts five arguments.</p>
+
+<ul>
+<li><strong>pubmed_data</strong>: an XML file or an XML object with PubMed records<br/></li>
+<li><strong>max_chars</strong> and <strong>autofill</strong>: same as discussed in the previous example</li>
+<li><strong>included_authors</strong>: one of the following options c(&ldquo;first&rdquo;, &ldquo;last&rdquo;, &ldquo;all&rdquo;). The function can return data corresponding to the first, the last or all the authors for each PubMed record.</li>
+<li><strong>dest_file</strong>: if not NULL, the function attempts writing its output to the selected file. Existing files will be overwritten.</li>
+</ul>
+
+<pre><code class="r">new_PM_query &lt;- &quot;(APEX1[TI] OR OGG1[TI]) AND (2010[PDAT]:2013[PDAT])&quot;
+out.B &lt;- batch_pubmed_download(pubmed_query_string = new_PM_query, dest_file_prefix = &quot;apex1_sample&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;PubMed data batch 1 / 1 downloaded...&quot;
+</code></pre>
+
+<pre><code class="r"># Retrieve the full name of the XML file downloaded in the previous step
+new_PM_file &lt;- out.B[1]
+new_PM_df &lt;- table_articles_byAuth(pubmed_data = new_PM_file, included_authors = &quot;first&quot;, max_chars = 0)
+# Alternatively, the output of a fetch_pubmed_data() could have been used
+#
+# Printing a sample of the resulting data frame
+new_PM_df$address &lt;- substr(new_PM_df$address, 1, 28)
+new_PM_df$jabbrv &lt;- substr(new_PM_df$jabbrv, 1, 9)
+print(new_PM_df[1:10, c(&quot;pmid&quot;, &quot;year&quot;, &quot;jabbrv&quot;, &quot;lastname&quot;, &quot;address&quot;)])  
+</code></pre>
+
+<pre><code>##        pmid year    jabbrv    lastname                      address
+## 1  24190502 2015 Arch. Tox        Bach Grup de Mutagènesi, Departam
+## 2  24186001 2014 Tumour Bi         Yan Department of Clinical Labor
+## 3  24175791 2014 Asian Pac          Li Cancer Center, Daping Hospit
+## 4  24121118 2014 Mech. Age    Lillenes Centre for Molecular Biology
+## 5  24101388 2014 J. Physio Antushevich The Kielanowski Institute of
+## 6  24075420 2014 DNA Repai          Gu State Key Laboratory of Repr
+## 7  23999824 2014 Tumour Bi        Chen Department of Hepatobiliary 
+## 8  23959014 2014 Biol. Res     Alanazi Genome Research Chair, Depar
+## 9  23909557 2014 Genet Tes        Wang Department of Oncology, Shan
+## 10 23892003 2014 Exp. Cell         Yan State Key Laboratory of Repr
+</code></pre>
+
+<h1>References</h1>
+
+<ul>
+<li><strong>Sayers, E. A General Introduction to the E-utilities (NCBI)</strong> <a href="https://www.ncbi.nlm.nih.gov/books/NBK25497/">https://www.ncbi.nlm.nih.gov/books/NBK25497/</a></li>
+<li><strong>PubMed Help (NCBI)</strong> <a href="https://www.ncbi.nlm.nih.gov/books/NBK3827/">https://www.ncbi.nlm.nih.gov/books/NBK3827/</a></li>
+<li><strong>Howto: basic usage of easyPubMed - an example</strong> <a href="http://www.biotechworld.it/bioinf/2016/01/05/querying-pubmed-via-the-easypubmed-package-in-r/">Tutorial/Blog Post</a></li>
+<li><strong>Howto: using easyPubMed for a targeting campaign</strong> <a href="http://www.biotechworld.it/bioinf/2016/01/21/scraping-pubmed-data-via-easypubmed-xml-and-regex-in-r-for-a-targeting-campaign/">Tutorial/Blog Post</a></li>
+</ul>
+
+<h1>Feedback and Citation</h1>
+
+<p>Thank you very much for using easyPubMed and/or reading this vignette. Please, feel free to contact me (author/maintainer) for feedback, questions and suggestions: my email is <damiano.fantini(at)gmail(dot)com>. </p>
+
+<p><em>easyPubMed</em> Copyright &copy; 2017 Damiano Fantini. <em>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</em></p>
+
+<p>If you are using <em>easyPubMed</em> for a scientific publication, please name the package in the Materials and Methods section of the paper. Thanks! Also, I am always open to collaborations. If you have an idea you would like to discuss or develop based on what you read in this Vignette, feel free to contact me via email. 
+Thank you.</p>
+
+<h1>SessionInfo</h1>
+
+<pre><code class="r">sessionInfo()
+</code></pre>
+
+<pre><code>## R version 3.3.1 (2016-06-21)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Ubuntu 16.04.1 LTS
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=C              
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] easyPubMed_2.3 XML_3.98-1.5  
+## 
+## loaded via a namespace (and not attached):
+## [1] magrittr_1.5  tools_3.3.1   stringi_1.1.2 knitr_1.15.1  stringr_1.1.0
+## [6] evaluate_0.10
+</code></pre>
+
+</body>
+
+</html>

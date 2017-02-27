@@ -1,7 +1,7 @@
 \name{get_pubmed_ids}
 \alias{get_pubmed_ids}
 \title{
-Simple PubMed Search
+Simple PubMed Record Search
 }
 \description{
 Query PubMed (Entrez) in a simple way via the PubMed API eSearch function. Calling this function results in posting the results on the PubMed History Server. This allows later access to the resulting data via the fetch_pubmed_data() function.
@@ -9,10 +9,8 @@ Query PubMed (Entrez) in a simple way via the PubMed API eSearch function. Calli
 \usage{
 get_pubmed_ids(pubmed_query_string)
 }
-
 \arguments{
-  \item{pubmed_query_string}{
-is a character vector and is the String that is used for querying PubMed (standard PubMed synthax).
+  \item{pubmed_query_string}{is a character vector and is the String that is used for querying PubMed (standard PubMed synthax, see reference for details).
 }
 }
 \details{
@@ -22,7 +20,8 @@ This function will use the String provided as argument for querying PubMed via t
 The function returns a list. The list includes the number of records found on PubMed and the first 20 PubMed IDs (UID) retrieved by the query. The list also includes QueryKey and WebEnv that are required for a subsequent fetch_pubmed_data() call.
 }
 \references{
-<"http://www.biotechworld.it/bioinf/2016/01/05/querying-pubmed-via-the-easypubmed-package-in-r/">
+\url{http://www.biotechworld.it/bioinf/2016/01/05/querying-pubmed-via-the-easypubmed-package-in-r/}
+\url{https://www.ncbi.nlm.nih.gov/books/NBK3827/#_pubmedhelp_Search_Field_Descriptions_and_}
 }
 \author{
 Damiano Fantini <"damiano.fantini@gmail.com">
