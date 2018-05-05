@@ -1,8 +1,8 @@
 Package: easyPubMed
 Type: Package
 Title: Search and Retrieve Scientific Publication Records from PubMed
-Version: 2.3
-Date: 2017-02-26
+Version: 2.5
+Date: 2018-05-05
 Author: Damiano Fantini
 Maintainer: Damiano Fantini <damiano.fantini@gmail.com>
 Description: Query NCBI Entrez and retrieve PubMed records in XML or text format. Process PubMed records by extracting and aggregating data from selected fields. A large number of records can be easily downloaded via this simple-to-use interface to the NCBI PubMed API. 
@@ -11,6 +11,6 @@ Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2017-02-26 23:31:38 UTC; dami
+Packaged: 2018-05-05 15:02:14 UTC; dami
 Repository: CRAN
-Date/Publication: 2017-02-27 08:15:26
+Date/Publication: 2018-05-05 15:27:26 UTC

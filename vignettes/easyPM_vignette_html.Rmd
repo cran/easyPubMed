@@ -1,5 +1,5 @@
 ---
-title: "Retrieving and Processing PubMed Records via easyPubMed"
+title: "Retrieving and Processing PubMed Records via easyPubMed (html)"
 author: "Damiano Fantini, Ph.D."
 date: "February 25, 2017"
 output: html_document
