@@ -8,8 +8,10 @@ Performs a PubMed Query (via the get_pubmed_ids() function), downloads the resul
 }
 \usage{
 batch_pubmed_download(pubmed_query_string, dest_dir = NULL, 
-                      dest_file_prefix = "easyPubMed_data_", format = "xml", 
-                      batch_size = 400, res_cn = 1)
+                      dest_file_prefix = "easyPubMed_data_", 
+                      format = "xml", api_key = NULL, 
+                      batch_size = 400, res_cn = 1, 
+                      encoding = "UTF8")
 }
 \arguments{
   \item{pubmed_query_string}{
@@ -24,30 +26,34 @@ String (character-vector of length 1): this string is used as prefix for the fil
   \item{format}{
 String (character-vector of length 1): data will be requested from Entrez in this format. Acceptable values are: c("medline","uilist","abstract","asn.1", "xml") When format != "xml", data will be saved as text files (txt).
 }
+  \item{api_key}{
+String (character vector of length 1): user-specific API key to increase the limit of queries per second. You can obtain your key from NCBI. 
+}
   \item{batch_size}{
 Integer (1 < batch_size < 5000): maximum number of records to be saved in a single xml or txt file.
 }
   \item{res_cn}{
 Integer (> 0): numeric index of the data batch to start downloading from. This parameter is useful to resume an incomplete download job after a system crash.
 }
+  \item{encoding}{The encoding of an input/output connection can be specified by name (for example, "ASCII", or "UTF-8", in the same way as it would be given to the function base::iconv(). See iconv() help page for how to find out more about encodings that can be used on your platform. Here, we recommend using "UTF-8". }
 }
 \details{
 Download large number of PubMed records as a set of xml or txt files that are saved in the folder specified by the user. This function enforces data integrity. If a batch of downloaded data is corrupted, it is discarded and downloaded again. Each download cycle is monitored until the download job is successfully completed. This function should allow to download a whole copy of PubMed, if desired. The function informs the user about the current progress by constantly printing to console the number of batches still in queue for download. pubmed_query_string accepts standard PubMed synthax. The function will query PubMed multiple times using the same query string. Therefore, it is recommended to use a [EDAT] or a [PDAT] filter in the query if you want to ensure reproducible results.
 }
 \references{
-\url{http://www.biotechworld.it/bioinf/2016/01/05/querying-pubmed-via-the-easypubmed-package-in-r/}
+\url{https://www.data-pulse.com/dev_site/easypubmed/}
 }
 \author{
 Damiano Fantini <"damiano.fantini@gmail.com">
 }
 \examples{
 \dontrun{
-# Example 01: retrieve data from PubMed and save as XML file
+## Example 01: retrieve data from PubMed and save as XML file
 ml_query <- "Machine Learning[TI] AND 2016[PD]"
 out1 <- batch_pubmed_download(pubmed_query_string = ml_query, batch_size = 180)
 XML::xmlParse(out1[1])
-#
-# Example 02: retrieve data from PubMed and save as TXT file
+##
+## Example 02: retrieve data from PubMed and save as TXT file
 ml_query <- "Machine Learning[TI] AND 2016[PD]"
 out2 <- batch_pubmed_download(pubmed_query_string = ml_query, batch_size = 180, format = "medline")
 readLines(out2[1])[1:30]

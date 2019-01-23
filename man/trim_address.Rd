@@ -18,7 +18,7 @@ Character string including an address as extracted from PubMed records.
 Character string including a formatted and trimmed address (if available).
 }
 \references{
-\url{http://www.biotechworld.it/bioinf/2016/01/05/querying-pubmed-via-the-easypubmed-package-in-r/}
+\url{https://www.data-pulse.com/dev_site/easypubmed/}
 }
 \author{
 Damiano Fantini <"damiano.fantini@gmail.com">
@@ -26,6 +26,6 @@ Damiano Fantini <"damiano.fantini@gmail.com">
 \examples{
 addr_string <- " 2 Dept of Urology, Feinberg School of Medicine," 
 addr_string <- paste(addr_string, "Chicago, US; Dept of Mol Bio as well...")
-addr_string
-trim_address(addr = addr_string)
+print(addr_string)
+print(trim_address(addr = addr_string))
 }

@@ -27,16 +27,16 @@ The input string has to be a character string (length 1) containing tags (HTML o
 List or vector where each element corresponds to an in-tag substring. 
 }
 \references{
-\url{http://www.biotechworld.it/bioinf/2016/01/05/querying-pubmed-via-the-easypubmed-package-in-r/}
+\url{https://www.data-pulse.com/dev_site/easypubmed/}
 }
 \author{
 Damiano Fantini <"damiano.fantini@gmail.com">
 }
 \examples{
-#
-# extract substrings based on regular expressions
+## extract substrings based on regular expressions
 string_01 <- "I can't wait to watch the <strong>Late Night Show with" 
 string_01 <- paste(string_01, "Seth Meyers</strong> tonight at <strong>11:30</strong>pm CT!")
+print(string_01)
 custom_grep(xml_data = string_01, tag = "strong", format = "char")
 custom_grep(xml_data = string_01, tag = "strong", format = "list")
 }
