@@ -11,7 +11,7 @@
 
 <meta name="author" content="Damiano Fantini, Ph.D." />
 
-<meta name="date" content="2019-01-17" />
+<meta name="date" content="2019-03-05" />
 
 <title>Retrieving and Processing PubMed Records using easyPubMed</title>
 
@@ -124,7 +124,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Retrieving and Processing PubMed Records using easyPubMed</h1>
 <h4 class="author"><em>Damiano Fantini, Ph.D.</em></h4>
-<h4 class="date"><em>January 17, 2019</em></h4>
+<h4 class="date"><em>March 05, 2019</em></h4>
 
 </div>
 
@@ -165,8 +165,8 @@ my_entrez_id &lt;- get_pubmed_ids(my_query)
 my_abstracts_txt &lt;- fetch_pubmed_data(my_entrez_id, format = &quot;abstract&quot;)
 
 # You may omit this conversion if your system supports UTF8
-my_abstracts_txt &lt;- iconv(my_abstracts_txt, from = &quot;UTF8&quot;, to = &quot;ASCII&quot;, sub = &quot;.&quot;)
-head(my_abstracts_txt)</code></pre>
+my_abstracts_txt &lt;- iconv(my_abstracts_txt, from = &quot;UTF8&quot;, to = &quot;ASCII&quot;, sub = &quot;.&quot;)</code></pre>
+<pre class="r"><code>head(my_abstracts_txt)</code></pre>
 <pre><code>## [1] &quot;&quot;                                                                                 
 ## [2] &quot;1. Urol Oncol. 2018 Nov 13. pii: S1078-1439(18)30381-8. doi:&quot;                     
 ## [3] &quot;10.1016/j.urolonc.2018.09.017. [Epub ahead of print]&quot;                             
@@ -175,9 +175,8 @@ head(my_abstracts_txt)</code></pre>
 ## [6] &quot;patients.&quot;</code></pre>
 <p>Here, the PubMed records were retrieved in the <em>Abstract</em> format. The formats supported by Entrez and easyPubMed are the following: “asn.1”, “xml”, “medline”, “uilist”, “abstract”. The following example shows how to retrieve PubMed records in XML format.</p>
 <p><strong>Note!!!</strong> Unlike before, the <code>fetch_pubmed_data()</code> function returns its output as a <em>character</em>-class object, AND NOT as an <em>XMLInternalDocument</em> and <em>XMLAbstractDocument</em>-class object. To access fields in such object, we recommend using the <code>custom_grep()</code> function included in <em>easyPubMed</em>. For example, it is possible to extract the title of each Article as follows.</p>
-<pre class="r"><code>my_abstracts_xml &lt;- fetch_pubmed_data(pubmed_id_list = my_entrez_id)
-
-# You may omit this conversion if your system supports UTF8
+<pre class="r"><code>my_abstracts_xml &lt;- fetch_pubmed_data(pubmed_id_list = my_entrez_id)</code></pre>
+<pre class="r"><code># You may omit this conversion if your system supports UTF8
 my_abstracts_xml &lt;- iconv(my_abstracts_xml, from = &quot;UTF8&quot;, to = &quot;ASCII&quot;, sub = &quot;.&quot;)
 
 class(my_abstracts_xml) </code></pre>
@@ -207,9 +206,6 @@ out.A &lt;- batch_pubmed_download(pubmed_query_string = new_query,
                                batch_size = 20,
                                dest_file_prefix = &quot;easyPM_example&quot;,
                                encoding = &quot;ASCII&quot;)</code></pre>
-<pre><code>## [1] &quot;PubMed data batch 1 / 3 downloaded...&quot;
-## [1] &quot;PubMed data batch 2 / 3 downloaded...&quot;
-## [1] &quot;PubMed data batch 3 / 3 downloaded...&quot;</code></pre>
 <pre class="r"><code># this variable stores the name of the output files
 print(out.A) </code></pre>
 <pre><code>## [1] &quot;easyPM_example01.txt&quot; &quot;easyPM_example02.txt&quot; &quot;easyPM_example03.txt&quot;</code></pre>
@@ -225,7 +221,7 @@ print(out.A) </code></pre>
 class(my_PM_list[1])</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <pre class="r"><code>print(substr(my_PM_list[4], 1, 510))</code></pre>
-<pre><code>## [1] &quot;&lt;PubmedArticle&gt;  &lt;MedlineCitation Status=\&quot;In-Data-Review\&quot; Owner=\&quot;NLM\&quot;&gt; &lt;PMID Version=\&quot;1\&quot;&gt;29785026&lt;/PMID&gt; &lt;DateRevised&gt; &lt;Year&gt;2019&lt;/Year&gt; &lt;Month&gt;01&lt;/Month&gt; &lt;Day&gt;07&lt;/Day&gt; &lt;/DateRevised&gt; &lt;Article PubModel=\&quot;Print-Electronic\&quot;&gt; &lt;Journal&gt; &lt;ISSN IssnType=\&quot;Electronic\&quot;&gt;1546-170X&lt;/ISSN&gt; &lt;JournalIssue CitedMedium=\&quot;Internet\&quot;&gt; &lt;Volume&gt;24&lt;/Volume&gt; &lt;Issue&gt;6&lt;/Issue&gt; &lt;PubDate&gt; &lt;Year&gt;2018&lt;/Year&gt; &lt;Month&gt;Jun&lt;/Month&gt; &lt;/PubDate&gt; &lt;/JournalIssue&gt; &lt;Title&gt;Nature medicine&lt;/Title&gt; &lt;ISOAbbreviation&gt;Nat. Med.&lt;/ISOAbbreviation&gt; &lt;/Journa&quot;</code></pre>
+<pre><code>## [1] &quot;&lt;PubmedArticle&gt; &lt;MedlineCitation Status=\&quot;In-Data-Review\&quot; Owner=\&quot;NLM\&quot;&gt; &lt;PMID Version=\&quot;1\&quot;&gt;29785026&lt;/PMID&gt; &lt;DateRevised&gt; &lt;Year&gt;2019&lt;/Year&gt; &lt;Month&gt;01&lt;/Month&gt; &lt;Day&gt;07&lt;/Day&gt; &lt;/DateRevised&gt; &lt;Article PubModel=\&quot;Print-Electronic\&quot;&gt; &lt;Journal&gt; &lt;ISSN IssnType=\&quot;Electronic\&quot;&gt;1546-170X&lt;/ISSN&gt; &lt;JournalIssue CitedMedium=\&quot;Internet\&quot;&gt; &lt;Volume&gt;24&lt;/Volume&gt; &lt;Issue&gt;6&lt;/Issue&gt; &lt;PubDate&gt; &lt;Year&gt;2018&lt;/Year&gt; &lt;Month&gt;Jun&lt;/Month&gt; &lt;/PubDate&gt; &lt;/JournalIssue&gt; &lt;Title&gt;Nature medicine&lt;/Title&gt; &lt;ISOAbbreviation&gt;Nat. Med.&lt;/ISOAbbreviation&gt; &lt;/Journal&quot;</code></pre>
 <p>Affiliations or other fields of interest can be extracted from a specific record using the <code>custom_grep()</code> function, that combines regular expressions (<em>regexpr</em>, <em>gsub</em>) and substring extraction (<em>substr</em>). The fields extracted from the record will be returned as elements of a list or a character vector.</p>
 <pre class="r"><code>curr_PM_record &lt;- my_PM_list[1]
 custom_grep(curr_PM_record, tag = &quot;PubDate&quot;)</code></pre>
@@ -234,7 +230,8 @@ custom_grep(curr_PM_record, tag = &quot;PubDate&quot;)</code></pre>
 <pre class="r"><code>custom_grep(curr_PM_record, tag = &quot;LastName&quot;, format = &quot;char&quot;)</code></pre>
 <pre><code>## [1] &quot;Fantini&quot; &quot;Seiler&quot;  &quot;Meeks&quot;</code></pre>
 <p><em>easyPubMed</em> implements (out-of-the-box) a tool for extracting data from a PubMed record: the <code>article_to_df()</code> function. This function accepts a string as input (typically, an element of the vector returned by an <code>articles_to_list()</code> call) and returns a data.frame. Each row corresponds to a different author and/or paper; columns are features corresponding to the following fields: <code>c(&quot;pmid&quot;, &quot;doi&quot;, &quot;title&quot;, &quot;abstract&quot;, &quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;jabbrv&quot;, &quot;journal&quot;, &quot;lastname&quot;, &quot;firstname&quot;,</code> <code>&quot;address&quot;, &quot;email&quot;)</code>. One of these fields corresponds to the Article Abstract text (column n. 2). If the full text Abstract is not required, it is possible to limit the number of chars retrieved from this field by setting the max_chars argument.</p>
-<pre class="r"><code>curr_PM_record &lt;- easyPubMed::NUBL_1618$records[37]
+<pre class="r"><code># Select a single PubMed record from the internal dataset, NUBL_1618
+curr_PM_record &lt;- easyPubMed::NUBL_1618$records[37]
 my.df &lt;- article_to_df(curr_PM_record, max_chars = 18)
 
 # Fields extracted from the PubMed record
@@ -269,12 +266,6 @@ my.df2[,c(&quot;pmid&quot;, &quot;title&quot;, &quot;jabbrv&quot;, &quot;firstna
 ## 3 29215524 Urinary Tract I Obstet Gyn        Jocelyn Department of Obste
 ## 4 29215524 Urinary Tract I Obstet Gyn      Michael J Department of Obste
 ## 5 29215524 Urinary Tract I Obstet Gyn        Magdy P Department of Obste</code></pre>
-<pre class="r"><code>#       pmid           title     jabbrv      firstname             address
-# 1 29215524 Urinary Tract I Obstet Gyn Jacqueline M K Department of Obste
-# 2 29215524 Urinary Tract I Obstet Gyn         Pietro Department of Obste
-# 3 29215524 Urinary Tract I Obstet Gyn        Jocelyn Department of Obste
-# 4 29215524 Urinary Tract I Obstet Gyn      Michael J Department of Obste
-# 5 29215524 Urinary Tract I Obstet Gyn        Magdy P Department of Obste</code></pre>
 <p>We can recusively process PubMed records using a loop or <code>sapply()</code> or <code>lapply()</code>. Here’s an example. For more info, check <code>?lapply</code> or <code>?do.call</code>.</p>
 <pre class="r"><code>xx &lt;- lapply(my_PM_list, article_to_df, autofill = TRUE, max_chars = 50)
 full_df &lt;- do.call(rbind, xx)
@@ -317,19 +308,19 @@ new_PM_df$jabbrv &lt;- substr(new_PM_df$jabbrv, 1, 9)
 sid &lt;- seq(1, nrow(new_PM_df), by = 10)
 
 new_PM_df[sid, c(&quot;pmid&quot;, &quot;year&quot;, &quot;jabbrv&quot;, &quot;lastname&quot;, &quot;address&quot;)]</code></pre>
-<pre><code>##        pmid year    jabbrv  lastname                      address
-## 1  30652586 2019 JCO Clin     Glaser Alexander P. Glaser, Brian J
-## 11 30346310 2018 Clin Spin    Hashmi Department of Orthopaedic Su
-## 21 29620960 2018 J. Endour        Ko Department of Urology, North
-## 31 29343911 2018 Indian J      Patel Department of Urology, Unive
-## 41 28886961 2018 Med Dosim Grelewicz Department of Radiation Onco</code></pre>
+<pre><code>##        pmid year    jabbrv    lastname                      address
+## 1  30652586 2019 JCO Clin       Glaser Alexander P. Glaser, Brian J
+## 11 30346310 2018 Clin Spin      Hashmi Department of Orthopaedic Su
+## 21 29578382 2018 J Spinal  Fitzpatrick a Center of Innovation for C
+## 31 29338913 2018 Urol. Onc      Weiner Department of Urology, North
+## 41 28734864 2019  J. Urol.    Griffith Department of Medical Social</code></pre>
 </div>
 <div id="approach-num.-2-fetch-records-on-the-fly" class="section level4">
 <h4>Approach num. 2: fetch records on-the-fly!</h4>
 <pre class="r"><code>new_query &lt;- 'Bladder[TIAB] AND Northwestern[AD] AND Chicago[AD] AND &quot;2018&quot;[PDAT]' 
 new_query &lt;- get_pubmed_ids(new_query)
-fetched_data &lt;- fetch_pubmed_data(new_query, encoding = &quot;ASCII&quot;)
-new_PM_df &lt;- table_articles_byAuth(pubmed_data = fetched_data, 
+fetched_data &lt;- fetch_pubmed_data(new_query, encoding = &quot;ASCII&quot;)</code></pre>
+<pre class="r"><code>new_PM_df &lt;- table_articles_byAuth(pubmed_data = fetched_data, 
                                    included_authors = &quot;first&quot;, 
                                    max_chars = 0, 
                                    encoding = &quot;ASCII&quot;)
@@ -340,12 +331,12 @@ new_PM_df$jabbrv &lt;- substr(new_PM_df$jabbrv, 1, 9)
 sid &lt;- seq(1, nrow(new_PM_df), by = 10)
 
 new_PM_df[sid, c(&quot;pmid&quot;, &quot;year&quot;, &quot;jabbrv&quot;, &quot;lastname&quot;, &quot;address&quot;)] </code></pre>
-<pre><code>##        pmid year    jabbrv  lastname                      address
-## 1  30652586 2019 JCO Clin     Glaser Alexander P. Glaser, Brian J
-## 11 30346310 2018 Clin Spin    Hashmi Department of Orthopaedic Su
-## 21 29620960 2018 J. Endour        Ko Department of Urology, North
-## 31 29343911 2018 Indian J      Patel Department of Urology, Unive
-## 41 28886961 2018 Med Dosim Grelewicz Department of Radiation Onco</code></pre>
+<pre><code>##        pmid year    jabbrv    lastname                      address
+## 1  30652586 2019 JCO Clin       Glaser Alexander P. Glaser, Brian J
+## 11 30346310 2018 Clin Spin      Hashmi Department of Orthopaedic Su
+## 21 29578382 2018 J Spinal  Fitzpatrick a Center of Innovation for C
+## 31 29338913 2018 Urol. Onc      Weiner Department of Urology, North
+## 41 28734864 2019  J. Urol.    Griffith Department of Medical Social</code></pre>
 </div>
 </div>
 </div>
@@ -396,7 +387,7 @@ new_PM_df[sid, c(&quot;pmid&quot;, &quot;year&quot;, &quot;jabbrv&quot;, &quot;l
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] easyPubMed_2.11
+## [1] easyPubMed_2.12
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] compiler_3.4.4  backports_1.1.2 magrittr_1.5    rprojroot_1.3-2

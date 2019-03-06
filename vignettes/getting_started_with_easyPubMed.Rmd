@@ -1,7 +1,7 @@
 ---
 title: "Retrieving and Processing PubMed Records using easyPubMed"
 author: "Damiano Fantini, Ph.D."
-date: "January 17, 2019"
+date: "March 05, 2019"
 output: html_document
 vignette: >
   %\VignetteIndexEntry{Getting Started with easyPubMed}
@@ -31,6 +31,9 @@ library(easyPubMed)
 
 ```{r include = FALSE}
 library(easyPubMed)
+out.X <- download.file(url = "https://www.data-pulse.com/projects/Rlibs/supporting/easyPM_vignette_suppl.rda", 
+                       destfile = "easyPM_vignette_suppl.rda", quiet = TRUE)
+load(file = "easyPM_vignette_suppl.rda")
 out.A <- NULL 
 out.B <- NULL
 ```
@@ -64,13 +67,20 @@ PubMed is queried via the `get_pubmed_ids()` function, which takes a **Query str
 
 Data can  be retrieved from the History Server via the `fetch_pubmed_data()` function. The records can be requested in either XML or TXT format. Here following you can find a very simple example. 
 
-```{r message = FALSE, warning = FALSE, eval = TRUE}
+```{r message = FALSE, warning = FALSE, eval = FALSE}
 my_query <- 'Damiano Fantini[AU] AND "2018"[PDAT]'
 my_entrez_id <- get_pubmed_ids(my_query)
 my_abstracts_txt <- fetch_pubmed_data(my_entrez_id, format = "abstract")
 
 # You may omit this conversion if your system supports UTF8
 my_abstracts_txt <- iconv(my_abstracts_txt, from = "UTF8", to = "ASCII", sub = ".")
+```
+
+```{r include=FALSE, echo = FALSE, eval = TRUE}
+my_abstracts_txt <- suppl_x[["e_01"]]
+```
+
+```{r message = FALSE, warning = FALSE, eval = TRUE}
 head(my_abstracts_txt)
 ```
 
@@ -78,9 +88,15 @@ Here, the PubMed records were retrieved in the *Abstract* format. The formats su
 
 **Note!!!** Unlike before, the `fetch_pubmed_data()` function returns its output as a *character*-class object, AND NOT as an *XMLInternalDocument* and *XMLAbstractDocument*-class object. To access fields in such object, we recommend using the `custom_grep()` function included in *easyPubMed*. For example, it is possible to extract the title of each Article as follows.
 
-```{r message = FALSE, warning = FALSE, eval = TRUE}
+```{r message = FALSE, warning = FALSE, eval = FALSE}
 my_abstracts_xml <- fetch_pubmed_data(pubmed_id_list = my_entrez_id)
+```
 
+```{r include=FALSE, echo = FALSE, eval = TRUE}
+my_abstracts_xml <- suppl_x[["e_02"]]
+```
+
+```{r message = FALSE, warning = FALSE, eval = TRUE}
 # You may omit this conversion if your system supports UTF8
 my_abstracts_xml <- iconv(my_abstracts_xml, from = "UTF8", to = "ASCII", sub = ".")
 
@@ -102,7 +118,7 @@ Instead of retrieving PubMed records as character- or XML-class objects, it is a
 
 **Note** that we included an argument (namely, `encoding`) to force the encoding of the retrieved records. Here, we recommend "UTF8". However, you can select different encodings (depending on the local platform). As an example, here we are specifying `encoding="ASCII"`.
 
-```{r message = FALSE, warning = FALSE, eval=TRUE}
+```{r message = FALSE, warning = FALSE, eval=FALSE}
 new_query <- 'Bladder[TIAB] AND Northwestern[AD] AND Chicago[AD] AND "2018"[PDAT]' 
 out.A <- batch_pubmed_download(pubmed_query_string = new_query, 
                                format = "xml", 
@@ -110,6 +126,12 @@ out.A <- batch_pubmed_download(pubmed_query_string = new_query,
                                dest_file_prefix = "easyPM_example",
                                encoding = "ASCII")
 
+```
+```{r message = FALSE, warning = FALSE, include = FALSE, echo = FALSE, eval=TRUE}
+out.A <- suppl_x[["e_03"]]
+```
+
+```{r message = FALSE, warning = FALSE, eval=TRUE}
 # this variable stores the name of the output files
 print(out.A) 
 ```
@@ -141,6 +163,7 @@ custom_grep(curr_PM_record, tag = "LastName", format = "char")
 `"address", "email")`. One of these fields corresponds to the Article Abstract text (column n. 2). If the full text Abstract is not required, it is possible to limit the number of chars retrieved from this field by setting the max_chars argument. 
 
 ```{r message = FALSE, warning = FALSE, eval=TRUE}
+# Select a single PubMed record from the internal dataset, NUBL_1618
 curr_PM_record <- easyPubMed::NUBL_1618$records[37]
 my.df <- article_to_df(curr_PM_record, max_chars = 18)
 
@@ -168,12 +191,6 @@ my.df2$address <- substr(my.df2$address, 1, 19)
 
 # Visualize
 my.df2[,c("pmid", "title", "jabbrv", "firstname", "address")]
-#       pmid           title     jabbrv      firstname             address
-# 1 29215524 Urinary Tract I Obstet Gyn Jacqueline M K Department of Obste
-# 2 29215524 Urinary Tract I Obstet Gyn         Pietro Department of Obste
-# 3 29215524 Urinary Tract I Obstet Gyn        Jocelyn Department of Obste
-# 4 29215524 Urinary Tract I Obstet Gyn      Michael J Department of Obste
-# 5 29215524 Urinary Tract I Obstet Gyn        Magdy P Department of Obste
 ```
 
 We can recusively process PubMed records using a loop or `sapply()` or `lapply()`. Here's an example. For more info, check `?lapply` or `?do.call`.
@@ -220,10 +237,17 @@ new_PM_df[sid, c("pmid", "year", "jabbrv", "lastname", "address")]
 ```
 
 #### Approach num. 2: fetch records on-the-fly!
-```{r takes_some_time2, message = FALSE, warning = FALSE, eval=TRUE}
+```{r takes_some_time2, message = FALSE, warning = FALSE, eval=FALSE}
 new_query <- 'Bladder[TIAB] AND Northwestern[AD] AND Chicago[AD] AND "2018"[PDAT]' 
 new_query <- get_pubmed_ids(new_query)
 fetched_data <- fetch_pubmed_data(new_query, encoding = "ASCII")
+```
+
+```{r takes_some_time2biz, include = FALSE, echo = FALSE, message = FALSE, warning = FALSE, eval=TRUE}
+fetched_data <- suppl_x[["e_04"]]
+```
+
+```{r takes_some_time2triz, message = FALSE, warning = FALSE, eval=TRUE}
 new_PM_df <- table_articles_byAuth(pubmed_data = fetched_data, 
                                    included_authors = "first", 
                                    max_chars = 0, 
