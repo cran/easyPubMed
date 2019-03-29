@@ -6,11 +6,7 @@
 
 ## ----include = FALSE-----------------------------------------------------
 library(easyPubMed)
-out.X <- download.file(url = "https://www.data-pulse.com/projects/Rlibs/supporting/easyPM_vignette_suppl.rda", 
-                       destfile = "easyPM_vignette_suppl.rda", quiet = TRUE)
-load(file = "easyPM_vignette_suppl.rda")
-out.A <- NULL 
-out.B <- NULL
+data("EPMsamples")
 
 ## ----inst___04, include = TRUE, echo = TRUE, eval = FALSE----------------
 #  library(devtools)
@@ -20,12 +16,11 @@ out.B <- NULL
 #  my_query <- 'Damiano Fantini[AU] AND "2018"[PDAT]'
 #  my_entrez_id <- get_pubmed_ids(my_query)
 #  my_abstracts_txt <- fetch_pubmed_data(my_entrez_id, format = "abstract")
-#  
-#  # You may omit this conversion if your system supports UTF8
-#  my_abstracts_txt <- iconv(my_abstracts_txt, from = "UTF8", to = "ASCII", sub = ".")
 
-## ----include=FALSE, echo = FALSE, eval = TRUE----------------------------
-my_abstracts_txt <- suppl_x[["e_01"]]
+## ----message = FALSE, warning = FALSE, eval = TRUE, echo = FALSE, include=FALSE----
+# Loading from the dataset attached to the package
+# You may omit this conversion if your system supports UTF8
+my_abstracts_txt <- iconv(EPMsamples$DF_papers_abs$pm_res, from = "UTF8", to = "ASCII", sub = ".")
 
 ## ----message = FALSE, warning = FALSE, eval = TRUE-----------------------
 head(my_abstracts_txt)
@@ -34,12 +29,11 @@ head(my_abstracts_txt)
 #  my_abstracts_xml <- fetch_pubmed_data(pubmed_id_list = my_entrez_id)
 
 ## ----include=FALSE, echo = FALSE, eval = TRUE----------------------------
-my_abstracts_xml <- suppl_x[["e_02"]]
+# Loading from the dataset attached to the package
+# You may omit this conversion if your system supports UTF8
+my_abstracts_xml <- iconv(EPMsamples$DF_papers_std$pm_res, from = "UTF8", to = "ASCII", sub = ".")
 
 ## ----message = FALSE, warning = FALSE, eval = TRUE-----------------------
-# You may omit this conversion if your system supports UTF8
-my_abstracts_xml <- iconv(my_abstracts_xml, from = "UTF8", to = "ASCII", sub = ".")
-
 class(my_abstracts_xml) 
 
 my_titles <- custom_grep(my_abstracts_xml, "ArticleTitle", "char")
@@ -61,7 +55,8 @@ head(my_titles)
 #  
 
 ## ----message = FALSE, warning = FALSE, include = FALSE, echo = FALSE, eval=TRUE----
-out.A <- suppl_x[["e_03"]]
+# Loading from the dataset attached to the package
+out.A <- EPMsamples$NUBL_dw18$pm_res
 
 ## ----message = FALSE, warning = FALSE, eval=TRUE-------------------------
 # this variable stores the name of the output files
@@ -80,7 +75,7 @@ custom_grep(curr_PM_record, tag = "LastName", format = "char")
 
 ## ----message = FALSE, warning = FALSE, eval=TRUE-------------------------
 # Select a single PubMed record from the internal dataset, NUBL_1618
-curr_PM_record <- easyPubMed::NUBL_1618$records[37]
+curr_PM_record <- easyPubMed::EPMsamples$NUBL_1618$rec_lst[[37]]
 my.df <- article_to_df(curr_PM_record, max_chars = 18)
 
 # Fields extracted from the PubMed record
@@ -118,7 +113,7 @@ out.B <- batch_pubmed_download(pubmed_query_string = new_query,
                                encoding = "ASCII")
 
 # Retrieve the full name of the XML file downloaded in the previous step
-new_PM_file <- out.B[1]
+new_PM_file <- out.B[[1]]
 new_PM_df <- table_articles_byAuth(pubmed_data = new_PM_file, 
                                    included_authors = "first", 
                                    max_chars = 0, 
@@ -127,7 +122,7 @@ new_PM_df <- table_articles_byAuth(pubmed_data = new_PM_file,
 # Printing a sample of the resulting data frame
 new_PM_df$address <- substr(new_PM_df$address, 1, 28)
 new_PM_df$jabbrv <- substr(new_PM_df$jabbrv, 1, 9)
-sid <- seq(1, nrow(new_PM_df), by = 10)
+sid <- seq(5, nrow(new_PM_df), by = 10)
 
 new_PM_df[sid, c("pmid", "year", "jabbrv", "lastname", "address")]
 
@@ -137,7 +132,7 @@ new_PM_df[sid, c("pmid", "year", "jabbrv", "lastname", "address")]
 #  fetched_data <- fetch_pubmed_data(new_query, encoding = "ASCII")
 
 ## ----takes_some_time2biz, include = FALSE, echo = FALSE, message = FALSE, warning = FALSE, eval=TRUE----
-fetched_data <- suppl_x[["e_04"]]
+fetched_data <- EPMsamples$NUBL_1618$pm_res
 
 ## ----takes_some_time2triz, message = FALSE, warning = FALSE, eval=TRUE----
 new_PM_df <- table_articles_byAuth(pubmed_data = fetched_data, 
@@ -148,7 +143,7 @@ new_PM_df <- table_articles_byAuth(pubmed_data = fetched_data,
 # Printing a sample of the resulting data frame
 new_PM_df$address <- substr(new_PM_df$address, 1, 28)
 new_PM_df$jabbrv <- substr(new_PM_df$jabbrv, 1, 9)
-sid <- seq(1, nrow(new_PM_df), by = 10)
+sid <- seq(5, nrow(new_PM_df), by = 10)
 
 new_PM_df[sid, c("pmid", "year", "jabbrv", "lastname", "address")] 
 
